@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <div>My blog navigation bar here</div>
-      <Nuxt />
+      My blog navigation bar here <NuxtLink to="/fun">fun page</NuxtLink>
     </div>
   </div>
 </template>
