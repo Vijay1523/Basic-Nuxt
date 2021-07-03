@@ -31,16 +31,24 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
-    "bootstrap-vue/nuxt"
+    "bootstrap-vue/nuxt",
+    "@nuxtjs/svg"
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
-  loading: "~/components/LoadingBar.vue",
+  loading: {
+    color: "#04781f",
+    height: "5px"
+  },
   loadingIndicator: {
     name: "circle",
     color: "#3B8070",
     background: "white"
+  },
+
+  router: {
+    linkExactActiveClass: "bg-gray-900"
   }
 };
