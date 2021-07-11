@@ -3,7 +3,7 @@
     <div class="mt-10 sm:mt-0">
       <div class="md:grid md:grid-cols-3">
         <div class="mt-7 md:mt-0 md:col-span-4">
-          <form @submit="checkForm" method="POST">
+          <form @submit="submit" method="POST">
             <div class="shadow overflow-hidden sm:rounded-md">
               <div class="px-4 py-5 bg-white sm:p-6">
                 <div class="grid grid-cols-6 gap-6">
@@ -18,7 +18,7 @@
                       name="first-name"
                       id="first-name"
                       v-model="form.firstName"
-                      @change="resetForm"
+                      @input="resetForm"
                       :class="
                         `appearance-none rounded-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm 
                         ${errors.firstName.status ? 'error' : ''}
@@ -41,6 +41,7 @@
                       name="last-name"
                       id="last-name"
                       v-model="form.lastName"
+                      @input="resetForm"
                       :class="
                         `appearance-none rounded-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm 
                         ${errors.lastName.status ? 'error' : ''}
@@ -64,6 +65,7 @@
                       id="email-address"
                       autocomplete="email"
                       v-model="form.email"
+                      @input="resetForm"
                       :class="
                         `appearance-none rounded-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm 
                         ${errors.email.status ? 'error' : ''}
@@ -77,116 +79,83 @@
 
                   <div class="col-span-6 sm:col-span-3">
                     <label
-                      for="country"
+                      for="designation"
                       class="block text-sm font-medium text-gray-700"
-                      >Country / Region</label
+                      >Designation</label
                     >
                     <select
-                      id="country"
-                      name="country"
-                      autocomplete="country"
-                      v-model="form.country"
-                      class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      id="designation"
+                      name="designation"
+                      autocomplete="designation"
+                      v-model="form.designation"
+                      @input="resetForm"
+                      :class="
+                        `mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                          errors.designation.status ? 'error' : ''
+                        }`
+                      "
                     >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
+                      <option>Regional Paradigm Technician</option>
                     </select>
+                    <p class="text-red-400" v-if="errors.designation.status">
+                      {{ errors.designation.message }}
+                    </p>
+                  </div>
+
+                  <div class="col-span-6 sm:col-span-3">
+                    <label
+                      for="role"
+                      class="block text-sm font-medium text-gray-700"
+                      >Role</label
+                    >
+                    <select
+                      id="role"
+                      name="role"
+                      autocomplete="role"
+                      v-model="form.role"
+                      @input="resetForm"
+                      :class="
+                        `mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                          errors.role.status ? 'error' : ''
+                        }`
+                      "
+                    >
+                      <option>Admin</option>
+                      <option>Manager</option>
+                      <option>Ass. Manager</option>
+                    </select>
+                    <p class="text-red-400" v-if="errors.role.status">
+                      {{ errors.role.message }}
+                    </p>
                   </div>
 
                   <div class="col-span-6">
                     <label
-                      for="street-address"
+                      for="department"
                       class="block text-sm font-medium text-gray-700"
                       >Street address</label
                     >
                     <input
                       type="text"
-                      name="street-address"
-                      id="street-address"
-                      autocomplete="street-address"
-                      v-model="form.streetaddress"
+                      name="department"
+                      id="department"
+                      v-model="form.department"
+                      @input="resetForm"
                       :class="
                         `appearance-none rounded-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm 
-                        ${errors.streetaddress.status ? 'error' : ''}
+                        ${errors.department.status ? 'error' : ''}
                       `
                       "
                     />
-                    <p class="text-red-400" v-if="errors.streetaddress.status">
-                      {{ errors.streetaddress.message }}
-                    </p>
-                  </div>
-
-                  <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                    <label
-                      for="city"
-                      class="block text-sm font-medium text-gray-700"
-                      >City</label
-                    >
-                    <input
-                      type="text"
-                      name="city"
-                      id="city"
-                      v-model="form.city"
-                      :class="
-                        `appearance-none rounded-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm 
-                        ${errors.lastName.status ? 'error' : ''}
-                      `
-                      "
-                    />
-                    <p class="text-red-400" v-if="errors.city.status">
-                      {{ errors.city.message }}
-                    </p>
-                  </div>
-
-                  <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                      for="state"
-                      class="block text-sm font-medium text-gray-700"
-                      >State / Province</label
-                    >
-                    <input
-                      type="text"
-                      name="state"
-                      id="state"
-                      v-model="form.state"
-                      :class="
-                        `appearance-none rounded-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm 
-                        ${errors.state.status ? 'error' : ''}
-                      `
-                      "
-                    />
-                    <p class="text-red-400" v-if="errors.state.status">
-                      {{ errors.state.message }}
-                    </p>
-                  </div>
-
-                  <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                      for="postal-code"
-                      class="block text-sm font-medium text-gray-700"
-                      >ZIP / Postal</label
-                    >
-                    <input
-                      type="text"
-                      name="postal-code"
-                      id="postal-code"
-                      autocomplete="postal-code"
-                      v-model="form.postalcode"
-                      :class="
-                        `appearance-none rounded-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm 
-                        ${errors.postalCode.status ? 'error' : ''}
-                      `
-                      "
-                    />
-                    <p class="text-red-400" v-if="errors.postalCode.status">
-                      {{ errors.postalCode.message }}
+                    <p class="text-red-400" v-if="errors.department.status">
+                      {{ errors.department.message }}
                     </p>
                   </div>
                 </div>
               </div>
               <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
+                  @click="submit"
                   type="submit"
                   class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
@@ -194,6 +163,7 @@
                 </button>
                 <button
                   class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  type="button"
                   @click="$router.go(-1)"
                 >
                   Cancel
@@ -208,6 +178,9 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+import { showToast } from "~/common/toast";
+
 export default {
   data() {
     return {
@@ -215,11 +188,10 @@ export default {
         firstName: "",
         lastName: "",
         email: "",
-        country: "",
-        streetaddress: "",
-        city: "",
-        state: "",
-        postalcode: ""
+
+        designation: "",
+        role: "",
+        department: ""
       },
       errors: {
         firstName: {
@@ -234,23 +206,15 @@ export default {
           status: false,
           message: ""
         },
-        country: {
+        designation: {
           status: false,
           message: ""
         },
-        streetaddress: {
+        role: {
           status: false,
           message: ""
         },
-        city: {
-          status: false,
-          message: ""
-        },
-        state: {
-          status: false,
-          message: ""
-        },
-        postalCode: {
+        department: {
           status: false,
           message: ""
         }
@@ -258,8 +222,10 @@ export default {
     };
   },
   methods: {
-    checkForm: function(e) {
-      e.preventDefault();
+    ...mapActions({
+      addUserAction: "ADD_USER"
+    }),
+    checkForm: function() {
       this.resetForm();
       if (!this.form.firstName) {
         this.errors.firstName.status = true;
@@ -276,25 +242,27 @@ export default {
         this.errors.email.message = "Email is required";
       }
 
-      if (!this.form.streetaddress) {
-        this.errors.streetaddress.status = true;
-        this.errors.streetaddress.message = "Streetaddress is required";
+      if (!this.form.designation) {
+        this.errors.designation.status = true;
+        this.errors.designation.message = "Please select designation";
       }
 
-      if (!this.form.city) {
-        this.errors.city.status = true;
-        this.errors.city.message = "City is required";
+      if (!this.form.role) {
+        this.errors.role.status = true;
+        this.errors.role.message = "Role is required";
       }
 
-      if (!this.form.state) {
-        this.errors.state.status = true;
-        this.errors.state.message = "State is required";
+      if (!this.form.department) {
+        this.errors.department.status = true;
+        this.errors.department.message = "Department is required";
       }
-
-      if (!this.form.postalCode) {
-        this.errors.postalCode.status = true;
-        this.errors.postalCode.message = "Pincode is required";
-      }
+    },
+    submit(e) {
+      e.preventDefault();
+      this.checkForm();
+      this.addUserAction(this.form);
+      showToast(this, "Record added successfully !", "success");
+      this.$router.push("/user-management");
     },
     resetForm() {
       let vm = this;

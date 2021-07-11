@@ -32,7 +32,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
-    "@nuxtjs/svg"
+    "@nuxtjs/svg",
+    "@nuxtjs/toast"
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -50,5 +51,8 @@ export default {
 
   router: {
     linkExactActiveClass: "bg-gray-900"
+  },
+  toast: {
+    position: "top-right"
   }
 };
