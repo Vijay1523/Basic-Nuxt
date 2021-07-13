@@ -1,4 +1,8 @@
 # sample-nuxt-app
+- It's just giving you understanding related to nuxt app. Actually which is related to vue js and just nuxt is made as wrapper you can understand easily app.
+
+# Taiwind css usage
+- We have used tailwind css in this Project.
 
 ## Build Setup
 
