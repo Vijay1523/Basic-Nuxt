@@ -1,4 +1,6 @@
 export default {
   users: [],
-  isUsersLoading: false
+  isUsersLoading: false,
+  selectedUser: {},
+  isUserDetailLoading: false
 };

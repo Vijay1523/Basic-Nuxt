@@ -120,11 +120,14 @@
                 <td
                   class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                 >
-                  <button class="text-sm text-green-400 hover:text-green-700">
+                  <button
+                    @click="edit(user.id)"
+                    class="cursor-pointer text-sm text-green-400 hover:text-green-700"
+                  >
                     Edit
                   </button>
                   <button
-                    class="text-sm text-red-400 hover:text-red-700"
+                    class="cursor-pointer text-sm text-red-400 hover:text-red-700"
                     @click="deleteModalOpen(user.id)"
                   >
                     Delete
@@ -184,10 +187,12 @@ export default {
     }
   },
   mounted() {
-    this.getUsers();
-    this.users.forEach((a, index) => {
-      this.statusToggle.push(a.status === "Active" ? true : false);
-    });
+    if (!this.users.length) {
+      this.getUsers();
+      this.users.forEach((a, index) => {
+        this.statusToggle.push(a.status === "Active" ? true : false);
+      });
+    }
   },
   methods: {
     ...mapActions({
@@ -216,6 +221,14 @@ export default {
         status: e.target.value === "on"
       });
       showToast(this, "User status changed Successfully", "success");
+    },
+    edit(id) {
+      this.$router.push({
+        name: "user-management-id",
+        params: {
+          id
+        }
+      });
     }
   },
   components: {
