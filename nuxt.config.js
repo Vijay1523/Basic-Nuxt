@@ -50,7 +50,14 @@ export default {
   },
 
   router: {
-    linkExactActiveClass: "bg-gray-900"
+    linkExactActiveClass: "bg-gray-900",
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: "dashboard",
+        path: "/dashboard",
+        component: resolve(__dirname, "pages/dashboard")
+      });
+    }
   },
   toast: {
     position: "top-right"
