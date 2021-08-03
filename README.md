@@ -1,5 +1,6 @@
 # sample-nuxt-app
 - It's just giving you understanding related to nuxt app. Actually which is related to vue js and just nuxt is made as wrapper you can understand easily app.
+- I have created some parts of the application like created one basic dashboard with charts, 2nd page is for crud operation, 3rd is in running part.
 
 # Taiwind css usage
 - We have used tailwind css in this Project.
